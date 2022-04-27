@@ -2,7 +2,7 @@
 
 #include <iostream>
 using namespace std;
-int Add(int a, int b);
+int Add(int a, int b); // Прототип (обьявление) функции - Function declaration
 int Sub(int a, int b);
 int Mul(int a, int b);
 double Div(int a, int b);
@@ -10,7 +10,7 @@ double Div(int a, int b);
 void main()
 {
 	setlocale(LC_ALL, "");
-	int a, b;
+	int a, b; // Вызов функции - Functiom call.
 	cout << "Введите два числа: "; cin >> a >> b;
 	int c = Add(a, b);
 	cout << a << "+" << b << "=" << c << endl;
@@ -21,7 +21,7 @@ void main()
 
 }
 
-int Add(int a, int b)
+int Add(int a, int b) // Реализация или определение функции - Function definition.
 {
 	int c = a + b;
 	return c;
