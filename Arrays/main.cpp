@@ -13,19 +13,21 @@ void FillRand(double arr[], const int n);
 void FillRand(char arr[], const int n);
 void FillRand(int arr[ROWS][COLS], const int ROWS,const int COLS);
 
-void Print(int arr[], const int n);
-void Print(double arr[], const int n);
-void Print(char arr[], const int n);
-void Print(int arr[ROWS][COLS], const int ROWS,const int COLS);
+template<typename T>
+void Print(T arr[], const int n);
+template<typename T>
+void Print(T arr[ROWS][COLS], const int ROWS,const int COLS);
 
-int Sum(int arr[], const int n);
-double Sum(double arr[], const int n);
+template<typename T>
+T Sum(T arr[], const int n);
 
-double Avg (int arr[], const int n);
-double Avg (double arr[], const int n);
+template<typename T>
+double Avg (T arr[], const int n);
+const char* Avg(char arr[], const int n);
 
-void ShiftLeft (int arr[], const int n, const int number_of_shifts);
-void ShiftLeft (double arr[], const int n, const int number_of_shifts);
+template<typename T>
+void ShiftLeft (T arr[], const int n, const int number_of_shifts);
+
 
 void ShiftRight (int arr[], const int n, const int number_of_shifts);
 void ShiftRight (double arr[], const int n, const int number_of_shifts);
@@ -33,7 +35,8 @@ void ShiftRight (double arr[], const int n, const int number_of_shifts);
 int MaxValue(int arr[], const int n);
 int MinValue(int arr[], const int n);
 
-void Sort(int arr[], const int n);
+template<typename T>
+void Sort(T arr[], const int n);
 
 void main()
 {
@@ -76,6 +79,8 @@ void main()
 	char c_arr[C_SIZE];
 	FillRand(c_arr, C_SIZE);
 	Print(c_arr, C_SIZE);
+	cout << "Среднее арифметическое элементов массива: " << Avg(c_arr, C_SIZE) << endl;
+
 
 	cout << delimiter << endl;
 
@@ -121,7 +126,8 @@ void FillRand(int arr[ROWS][COLS], const int ROWS, const int COLS)
 	}
 }
 //Вывод массива на экран:
-void Print(int arr[], const int n)
+template<typename T>
+void Print(T arr[], const int n)
 {
 	for (int i = 0; i < n; i++)
 	{
@@ -129,23 +135,9 @@ void Print(int arr[], const int n)
 	}
 	cout << endl;
 }
-void Print(double arr[], const int n)
-{
-	for (int i = 0; i < n; i++)
-	{
-		cout<<arr[i]<<"\t";
-	}
-	cout << endl;
-}
-void Print(char arr[], const int n)
-{
-	for (int i = 0; i < n; i++)
-	{
-		cout<<arr[i]<<"\t";
-	}
-	cout << endl;
-}
-void Print(int arr[ROWS][COLS], const int ROWS, const int COLS)
+
+template<typename T>
+void Print(T arr[ROWS][COLS], const int ROWS, const int COLS)
 {
 	for (int i = 0; i < ROWS; i++)
 	{
@@ -157,39 +149,35 @@ void Print(int arr[ROWS][COLS], const int ROWS, const int COLS)
 	}
 }
 //Сумма элементов массива:
-int Sum(int arr[], const int n)
+template<typename T>
+T Sum(T arr[], const int n)
 {
-	int sum = 0;
+	T sum = 0;
 	for (int i = 0; i < n; i++)
 	{
 		sum += arr[i];
 	}
 	return sum;
 }
-double Sum(double arr[], const int n)
-{
-	double sum = 0;
-	for (int i = 0; i < n; i++)
-	{
-		sum += arr[i];
-	}
-	return sum;
-}
+
 //Среднее арифметическое элементов массива:
-double Avg(int arr[], const int n)
+template<typename T>
+double Avg(T arr[], const int n)
 {
 	return (double)Sum(arr, n) / n;
 }
-double Avg(double arr[], const int n)
+const char* Avg(char arr[], const int n)
 {
-	return (double)Sum(arr, n) / n;
+	return "Для символов невозможно вычислить среднее арифметическое";
 }
+
 //Количество сдвигов элементов массива влево:
-void ShiftLeft(int arr[], const int n, const int number_of_shifts)
+template<typename T>
+void ShiftLeft(T arr[], const int n, const int number_of_shifts)
 {
 	for (int i = 0; i < number_of_shifts; i++)
 	{
-		int buffer = arr[0];
+		T buffer = arr[0];
 		for (int i = 0; i < n; i++)
 		{
 			arr[i] = arr[i + 1];
@@ -197,19 +185,9 @@ void ShiftLeft(int arr[], const int n, const int number_of_shifts)
 		arr[n - 1] = buffer;
 	}
 }
-void ShiftLeft(double arr[], const int n, const int number_of_shifts)
-{
-	for (int i = 0; i < number_of_shifts; i++)
-	{
-		double buffer = arr[0];
-		for (int i = 0; i < n; i++)
-		{
-			arr[i] = arr[i + 1];
-		}
-		arr[n - 1] = buffer;
-	}
-}
-void Sort(int arr[], const int n)
+
+template<typename T>
+void Sort(T arr[], const int n)
 {
 	for (int i = 0; i < n; i++) // счестик 'i' выбирает элемент, в который нужно поместить минимальное значение
 	{
@@ -219,7 +197,7 @@ void Sort(int arr[], const int n)
 			//arr[j] - перебираемый элемент
 			if (arr[j] < arr[i])
 			{
-				int buffer = arr[i];
+				T buffer = arr[i];
 				arr[i] = arr[j];
 				arr[j] = buffer;
 			}
